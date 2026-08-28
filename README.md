@@ -36,11 +36,15 @@ Prompt Jelas: Role+Task+Context+Constraints+Iterate lengkap → Skor 9/10 → PA
 
 ```bash
 # 1. Clone repo ini
-git clone https://github.com/<username>/prompt-refiner.git
+git clone https://github.com/areybra/opti-agent.git
+# atau jika folder bentrok:
+git clone https://github.com/areybra/opti-agent.git prompt-refiner
 
 # 2. Copy ke folder skills OpenCode
 mkdir -p ~/.config/opencode/skills
-cp -r prompt-refiner ~/.config/opencode/skills/
+cp -r opti-agent ~/.config/opencode/skills/prompt-refiner
+# jika clone sebagai prompt-refiner:
+# cp -r prompt-refiner ~/.config/opencode/skills/
 
 # 3. Verifikasi
 ls -R ~/.config/opencode/skills/prompt-refiner
@@ -50,15 +54,15 @@ ls -R ~/.config/opencode/skills/prompt-refiner
 ### Opsi B — Symlink (untuk development)
 
 ```bash
-git clone https://github.com/<username>/prompt-refiner.git ~/prompt-refiner
-ln -s ~/prompt-refiner ~/.config/opencode/skills/prompt-refiner
+git clone https://github.com/areybra/opti-agent.git ~/opti-agent
+ln -s ~/opti-agent ~/.config/opencode/skills/prompt-refiner
 ```
 
 ### Opsi C — Install sebagai `.opencode/skills` di project
 
 ```bash
 mkdir -p .opencode/skills
-cp -r prompt-refiner .opencode/skills/
+cp -r /path/to/opti-agent .opencode/skills/prompt-refiner
 ```
 
 > Restart OpenCode TUI setelah install. Skill akan terdeteksi otomatis.
