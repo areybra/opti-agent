@@ -1,10 +1,20 @@
-# Prompt Refiner — OpenCode Skill
+# Prompt Refiner — Universal Agent Skill
 
 > Gate anti asal eksekusi. Audit prompt dengan 5 pilar sebelum agent menulis kode.
+> **Works with ALL agents:** OpenCode, Claude Code, Codex, Cursor, Windsurf, Copilot, Gemini CLI, ChatGPT, Perplexity, dan LLM apa pun.
 
 Skill ini mencegah agent mengeksekusi prompt yang kabur. Setiap prompt diaudit terhadap 5 pilar — **Role, Task, Context, Constraints, Evaluate & Iterate** — diberi skor 0–10, dan **diblokir (BLOCK)** jika skor < 8 sampai diperjelas dengan 3–5 pertanyaan terarah.
 
 **Bahasa:** Mengikuti bahasa input user (ID/EN otomatis).
+
+## Universal vs OpenCode
+
+| File | Untuk | Cara Pakai |
+|------|-------|------------|
+| `UNIVERSAL.md` | **Semua AI** (ChatGPT, Claude, Gemini, Cursor, Copilot, dll) | Copy-paste sebagai System Prompt / Custom Instruction |
+| `SKILL.md` + `references/` + `assets/` | OpenCode | `cp -r` ke `~/.config/opencode/skills/prompt-refiner` |
+| `AGENTS.md` | Codex, Cursor, Windsurf | Auto-read oleh agent |
+| `CLAUDE.md` | Claude Code | Auto-read / paste ke Project Knowledge |
 
 ---
 
@@ -32,7 +42,22 @@ Prompt Jelas: Role+Task+Context+Constraints+Iterate lengkap → Skor 9/10 → PA
 
 ## Instalasi
 
-### Opsi A — Copy Manual (paling mudah)
+### Universal — Untuk ChatGPT / Claude / Gemini / Cursor / Copilot (1 copy-paste)
+
+1. Buka `UNIVERSAL.md` di repo ini
+2. Copy seluruh isinya
+3. Paste sebagai:
+   - **ChatGPT:** Settings → Custom Instructions / GPT Builder → Instructions
+   - **Claude:** Project Knowledge / `CLAUDE.md` di root project
+   - **Cursor / Windsurf / Codex:** `AGENTS.md` di root project (sudah tersedia, tinggal copy file ini)
+   - **Gemini:** Gems → Instructions
+   - **Copilot:** `.github/copilot-instructions.md`
+
+Tidak butuh tools, hanya markdown.
+
+### OpenCode — 3 Opsi
+
+**Opsi A — Copy Manual (paling mudah)**
 
 ```bash
 # 1. Clone repo ini
@@ -51,14 +76,14 @@ ls -R ~/.config/opencode/skills/prompt-refiner
 # harus ada: SKILL.md, references/, assets/
 ```
 
-### Opsi B — Symlink (untuk development)
+**Opsi B — Symlink (dev)**
 
 ```bash
 git clone https://github.com/areybra/opti-agent.git ~/opti-agent
 ln -s ~/opti-agent ~/.config/opencode/skills/prompt-refiner
 ```
 
-### Opsi C — Install sebagai `.opencode/skills` di project
+**Opsi C — Project-local**
 
 ```bash
 mkdir -p .opencode/skills
@@ -66,6 +91,14 @@ cp -r /path/to/opti-agent .opencode/skills/prompt-refiner
 ```
 
 > Restart OpenCode TUI setelah install. Skill akan terdeteksi otomatis.
+
+### Cursor / Codex / Windsurf — AGENTS.md
+
+```bash
+cp AGENTS.md /path/to/your-project/AGENTS.md
+# atau
+cp UNIVERSAL.md /path/to/your-project/AGENTS.md
+```
 
 ## Penggunaan
 
@@ -88,14 +121,18 @@ Load skill prompt-refiner dan audit prompt berikut: "buatkan dashboard admin"
 ## Struktur
 
 ```
-prompt-refiner/
-├── SKILL.md                              # workflow utama 4 fase + BLOCK gate
+opti-agent/
+├── UNIVERSAL.md                          # ← untuk SEMUA AI (1 file, copy-paste jadi system prompt)
+├── AGENTS.md                             # auto-read Codex/Cursor/Windsurf
+├── CLAUDE.md                             # untuk Claude Code
+├── SKILL.md                              # workflow OpenCode (BLOCK gate)
 ├── references/
 │   ├── 5-pillars-checklist.md            # rubrik skor 0/1/2
 │   ├── question-templates.md             # template 3-5 pertanyaan ID/EN
 │   └── scoring-rubric.md                 # contoh 1/10 vs 9/10
 ├── assets/
 │   └── refined-prompt.template.md        # template Optimized Prompt
+├── LICENSE
 └── README.md
 ```
 
@@ -145,4 +182,4 @@ PR welcome. Pastikan `SKILL.md` tetap konsisten dengan `references/` dan `assets
 
 ---
 
-**Dibuat untuk [OpenCode](https://opencode.ai) — skill system.**
+**Dibuat untuk semua agent — OpenCode, Claude, Codex, Cursor, Gemini, ChatGPT. Satu skill, semua platform.**
